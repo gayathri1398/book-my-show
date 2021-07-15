@@ -1,4 +1,4 @@
-import { Route } from "react-router-dom";
+import React from "react";
 
 import DefaultHOC from "./HOC/Default.HOC";
 
