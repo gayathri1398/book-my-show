@@ -2,9 +2,10 @@
 import React from "react";
 import { Route } from "react-router-dom";
 
+// layout
 import DefaultLayout from "../layouts/Default.layout";
 
-
+// HOC
 const DefaultHOC = ({component:Component, ...rest}) => {
     // const Component = component or component:Component;
 
