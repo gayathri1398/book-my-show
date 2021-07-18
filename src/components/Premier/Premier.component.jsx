@@ -11,11 +11,13 @@ import PremierImages from '../../config/TempPosters.config';
 export const Premier = () => {
     return (
         <>
+         
+        
         <Slider {...settings}>
             {PremierImages.map((image)=>
-            <Poster {...image}/>)}
+            <Poster {...image} isDark/>)}
         </Slider>
-            
+       
         </>
     )
 }

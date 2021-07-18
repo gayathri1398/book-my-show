@@ -1,6 +1,6 @@
 
     let settings = {
-        infinity:false,
+        infinity:true,
         autoplay:false,
         slidesToShow:5,
         slidesToScroll:1,
