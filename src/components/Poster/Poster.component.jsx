@@ -3,8 +3,8 @@ import React from 'react';
 
 const Poster = (props) => {
     return (
-      <div className="  flex  flex-col items-start gap-3 px-4  ">
-          <div className="h-80 ">
+      <div className="  flex  flex-col items-start gap-3 px-2 lg:px-4  ">
+          <div className="h-64 lg:h-80 ">
             <img src={props.src}
              alt={props.title}
              className="h-full w-full rounded-xl" />
