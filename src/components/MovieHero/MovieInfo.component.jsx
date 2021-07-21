@@ -3,7 +3,7 @@ import React from 'react'
 const MovieInfo = () => {
     return (
         <>
-        <div className="flex flex-col items-start gap-3  md:gap-5 p-1 lg:gap-10  ">
+        <div className="flex flex-col items-start gap-3  md:gap-5  lg:gap-10  ">
             <div className= "w-32 h-6 flex  items-center gap-4">
                 <img src="https://in.bmscdn.com/moviemode/tvod/premiere-tag.png" 
                 alt="Premier" 
