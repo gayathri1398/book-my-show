@@ -1,4 +1,6 @@
-import React from 'react';
+import axios from 'axios';
+import React,{useState,useEffect} from 'react';
+
 
 // components
 import EntertainmentCardSlider from '../components/Entertainmentcard/EntertainmentCard.component';
@@ -9,6 +11,39 @@ import PosterSlider from '../components/PosterSlider/PosterSlider.component';
 import TempPosters from '../config/TempPosters.config'
 
 const HomePage = () => {
+
+    const[popularMovies,setPopularMovies] = useState([]);
+    const[topRatedMovies,setTopRatedMovies] = useState([]);
+    const[upcomingMovies,setUpcomingMovies] = useState([]);
+
+    useEffect(()=>{
+        // creating async fn separately because it leads to race condition(deadlock) 
+        const requestPopularMovies = async() =>{
+             const getPopularMovies = await axios.get("/movie/popular");
+             setPopularMovies(getPopularMovies.data.results);
+             console.log( getPopularMovies)
+        }
+        requestPopularMovies();
+    },[]);
+
+    useEffect(()=>{
+        const requestTopRatedMovies = async()=>{
+            const getTopRatedMovies = await axios.get("/movie/top_rated");
+            setTopRatedMovies(getTopRatedMovies.data.results);
+
+        };
+        requestTopRatedMovies();
+
+    },[]);
+
+    useEffect(()=>{
+        const requestUpcomingMovies = async()=>{
+            const getUpcomingMovies = await axios.get("/movie/upcoming");
+            setUpcomingMovies(getUpcomingMovies.data.results);
+        };
+        requestUpcomingMovies();
+    },[])
+
     return (
         <>
            <div className="flex flex-col gap-10 ">
@@ -30,7 +65,7 @@ const HomePage = () => {
                     </div>
                   
                     <PosterSlider 
-                      image={TempPosters}
+                      image={popularMovies}
                        title="Premiers"
                         subtitle="Brand new releases every Friday" 
                          isDark
@@ -40,7 +75,7 @@ const HomePage = () => {
 
                    <div className="container mx-auto px-4 flex flex-col gap-3 lg:px-12">
                     <PosterSlider 
-                      image={TempPosters}
+                      image={topRatedMovies}
                        title="Online Streaming Events"
                         isDark={false}
                         />
@@ -48,7 +83,7 @@ const HomePage = () => {
                 
                    <div className="container mx-auto px-4 flex flex-col gap-3 lg:px-12">
                     <PosterSlider 
-                      image={TempPosters}
+                      image={upcomingMovies}
                        title="Outdoor Events"
                         isDark={false}
                         />
