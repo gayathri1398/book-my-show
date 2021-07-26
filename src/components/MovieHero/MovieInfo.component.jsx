@@ -1,6 +1,15 @@
-import React from 'react'
+import React,{useContext} from 'react';
+
+
+// context
+import { MovieContext } from '../../context/movie.context';
 
 const MovieInfo = () => {
+    const {movie} = useContext(MovieContext);
+    // const genres = movie.genres&&movie.genres.map(({name})=>name).join(", ");  //normal way
+    const genres = movie.genres?.map(({name})=>name).join(", ");  // optional chaining
+
+    
     return (
         <>
         <div className="flex flex-col items-start gap-3  md:gap-5  lg:gap-10  ">
@@ -12,9 +21,9 @@ const MovieInfo = () => {
             </div>
             <div className="flex flex-col-reverse lg:flex-col ">
                 <div className="text-white w-full h-16 flex flex-col gap-2 lg:gap-5">
-                    <h1 className="hidden lg:block font-bold text-4xl">Zack Snyder`s Justice League</h1>
-                    <h3 className="text-gray-300 text-sm md:text-base"> English  &bull;  Language: Audio(1), Subtitle(1)</h3>
-                    <h3 className="w-full text-sm md:text-base"> 4h 1m &bull; Fantasy, Action, Adventure &bull; 16+ &bull; 18 Mar,2021</h3>
+                    <h1 className="hidden lg:block font-bold text-4xl">{movie.original_title}</h1>
+                    <h3 className="text-gray-300 text-sm md:text-base"> {movie.original_language}  &bull;  4k</h3>
+                    <h3 className="w-full text-sm md:text-base"> {(movie.runtime/60).toFixed(2)} hr &bull; {genres} &bull; 16+ &bull; 18 Mar,2021</h3>
                 </div>
                 <div className="p-1 text-white w-screen h-12 flex lg:mt-28 ">
                     <button className="w-1/2 bg-bms-900 rounded-md lg:w-56">Rent₹149</button>

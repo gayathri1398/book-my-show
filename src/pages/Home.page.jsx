@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React,{useState,useEffect} from 'react';
-import { Link } from 'react-router-dom';
+
 
 
 // components
@@ -46,7 +46,7 @@ const HomePage = () => {
     },[])
 
     return (
-        <Link to = "/movies/id">
+        <>
            <div className="flex flex-col gap-10 ">
             <div className=" container mx-auto px-4 my-12 lg:px-12 ">
                 <h1 className="text-lg lg:text-2xl font-bold text-gray-800 ">
@@ -90,7 +90,7 @@ const HomePage = () => {
                         />
                    </div>
                </div>
-            </Link>
+            </>
           
     );
 };

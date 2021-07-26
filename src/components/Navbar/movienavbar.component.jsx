@@ -1,12 +1,21 @@
-import React from "react";
+
+import React ,{useContext}from "react";
 import {BiShareAlt,BiSearch,BiMenu} from 'react-icons/bi';
-import {MdArrowDropDown} from 'react-icons/md'
+import {MdArrowDropDown} from 'react-icons/md';
+
+
+
+// context
+
+import { MovieContext } from "../../context/movie.context";
 
 const Navsm = () => {
+    // hook
+   const {movie} = useContext(MovieContext);
     return<>
     <div className="flex justify-between items-center">
         <div>
-            <h3 className="text-xl font-bold text-white">It All Starts Here!</h3>
+            <h3 className="text-xl font-bold text-white">{movie.original_title}</h3>
          
         </div>
         <div className="text-white w-8 h-8" >

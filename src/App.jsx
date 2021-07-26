@@ -18,7 +18,7 @@ import "slick-carousel/slick/slick-theme.css";
 // axios default settings
 axios.defaults.baseURL="https://api.themoviedb.org/3";
 axios.defaults.params={};   //by default the params object is not present so creating it empty first
-axios.defaults.params["api_key"]=process.env.REACT_APP_API_KEY;
+axios.defaults.params["api_key"] = process.env.REACT_APP_API_KEY;
 
 
 
@@ -28,7 +28,7 @@ function App() {
     
   <>
   <DefaultHOC path ="/" exact component={HomePage} />
-  <MovieHOC path ="/movies/:id" exact component={MoviePage}/>
+  <MovieHOC path ="/movie/:id" exact component={MoviePage}/>
   <DefaultHOC path ="/plays" exact component ={Plays}/>
 
   </>
