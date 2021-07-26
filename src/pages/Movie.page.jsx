@@ -1,6 +1,9 @@
-import React from 'react';
+import React,{useContext,useState,useEffect} from 'react';
 import {FaCcVisa}from 'react-icons/fa';
 import {SiApplepay}from 'react-icons/si';
+import axios from 'axios';
+import { useParams } from 'react-router';
+
 
 
 
@@ -10,8 +13,27 @@ import CastandCrew from '../components/Cast/CastandCrew.component';
 import PosterSlider from '../components/PosterSlider/PosterSlider.component';
 import TempPosters from '../config/TempPosters.config';
 
+// context
+import { MovieContext } from '../context/movie.context';
+import Slider from 'react-slick';
+
+
 
 const MoviePage = () => {
+    const {movie} = useContext(MovieContext);
+    const {id} = useParams();
+
+    const [cast, setCast] = useState([]);
+
+    useEffect(()=>{
+        const requestCast = async()=>{
+            const getCast = await axios.get(`/movie/${id}/credits`);
+            setCast(getCast.data.cast);
+        }
+        
+        requestCast();
+    },[id])
+    
 
     let movieSettings = {
         infinity:true,
@@ -46,6 +68,43 @@ const MoviePage = () => {
                 },
      
         ]
+
+       
+    };
+    let castSettings = {
+        infinity:true,
+        autoplay:false,
+        slidesToShow:6,
+        slidesToScroll:1,
+        InitialSlide:0,
+        responsive:[
+            {
+            breakpoint: 1024,
+            settings :{
+                slidesToShow:4,
+                slidesToScroll:2,
+                infinity:true,
+               },
+            },
+          {
+            breakpoint: 600,
+            settings:{
+                slidesToShow:2,
+                slidesToScroll:2,
+                InitialSlide:1,
+            },
+            },
+            {
+                breakpoint: 480,
+                settings:{
+                    slidesToShow:2,
+                    slidesToScroll:2,
+                    InitialSlide:1,
+                },
+                },
+     
+        ]
+
        
     };
     return (
@@ -54,8 +113,7 @@ const MoviePage = () => {
         <div className="container px-3 lg:px-40  w-full lg:w-4/5  ">
             <div className="my-4 w-full flex flex-col gap-2 lg:gap-3 my-8 ">
                 <h2 className="text-xl md:text-2xl font-bold ">About the movie</h2>
-                <p className="text-sm md:text-base">Bruce Wayne and Diana Prince try to bring the metahumans of Earth together after the death of Clark Kent. Meanwhile, 
-                    Darkseid sends Steppenwolf to Earth with an army to subjugate humans.</p>
+                <p className="text-sm md:text-base">{movie.overview}</p>
             </div>
             <div>
                 <hr />
@@ -86,20 +144,19 @@ const MoviePage = () => {
             <div  className="mt-8">
                 <hr />
             </div>
+            <div className=" my-4 " >
+            <h2 className="text-2xl font-bold">Cast</h2>
+            <Slider {...castSettings}>
+                {cast.map((castdata)=>(
+                   
+                    <CastandCrew image={`https://image.tmdb.org/t/p/original${castdata.profile_path}`}
+                    name={castdata.original_name}
+                    role={castdata.character}/>
+                   
+                ))}
             
-            <h2 className="text-2xl font-bold my-4 ">Cast</h2>
-            <div className="flex flex-wrap gap-3 ">
-             <CastandCrew image="https://in.bmscdn.com/iedb/artist/images/website/poster/large/ben-affleck-292-12-09-2017-05-12-16.jpg"
-             name="Ben Affleck"
-             role="Batman"/>
-               <CastandCrew image="https://in.bmscdn.com/iedb/artist/images/website/poster/large/henry-cavill-23964-04-05-2020-04-25-14.jpg"
-             name="Henry Cavill"
-             role="Superman"/>
-               <CastandCrew image="https://in.bmscdn.com/iedb/artist/images/website/poster/large/gal-gadot-11088-17-10-2017-11-45-36.jpg"
-             name="Gal Gadot"
-             role="Wonder Woman"/>
-         
-             </div>
+            </Slider>
+            </div>
              <div  className="mt-8">
                 <hr />
             </div>
@@ -126,4 +183,4 @@ const MoviePage = () => {
     )
 }
 
-export default MoviePage
+export default MoviePage;
