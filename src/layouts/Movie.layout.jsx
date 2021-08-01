@@ -15,6 +15,8 @@ import { MovieContext } from '../context/movie.context';
 const MovieLayout =(props)=>{
   const {id} = useParams();
   const {movie,setmovie} = useContext(MovieContext) ;
+  
+  
 
   useEffect(()=>{
     const requestMovie = async()=>{
@@ -24,6 +26,8 @@ const MovieLayout =(props)=>{
     requestMovie();
 
   },[id])
+
+  
 
     return<>
     <MovieNavbar/>

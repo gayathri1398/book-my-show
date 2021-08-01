@@ -22,8 +22,9 @@ import Slider from 'react-slick';
 const MoviePage = () => {
     const {movie} = useContext(MovieContext);
     const {id} = useParams();
-
     const [cast, setCast] = useState([]);
+    const [getSimilarMovies, setSimilarMovies] = useState([]);
+    const [getRecommendedMovies, setRecommendedMovies] = useState([]);
 
     useEffect(()=>{
         const requestCast = async()=>{
@@ -32,7 +33,26 @@ const MoviePage = () => {
         }
         
         requestCast();
-    },[id])
+    },[id]);
+
+    useEffect(()=>{
+        const requestSimilarMovies = async()=>{
+          const getSimilarMovies = await axios.get(`/movie/${id}/similar`);
+         setSimilarMovies (getSimilarMovies.data.results);
+        }
+        requestSimilarMovies();
+        
+     },[id]);
+     
+     useEffect(()=>{
+         const requestRecommendedMovies = async()=>{
+         const getRecommendedMovies = await axios.get(`movie/${id}/recommendations`);
+         setRecommendedMovies(getRecommendedMovies.data.results);
+         };
+         requestRecommendedMovies();
+     },[id]);
+
+     
     
 
     let movieSettings = {
@@ -163,7 +183,7 @@ const MoviePage = () => {
              <div className="my-4">
                  <PosterSlider 
                  config={movieSettings}
-                 image={TempPosters}
+                 image={getSimilarMovies}
                  title ="You might also like"
                  isDark={false}/>
              </div>
@@ -173,7 +193,7 @@ const MoviePage = () => {
              <div className="my-4">
                  <PosterSlider 
                  config={movieSettings}
-                 image={TempPosters}
+                 image={getRecommendedMovies}
                  title ="BMS XCLUSIV"
                  isDark={false}/>
              </div>

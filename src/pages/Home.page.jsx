@@ -22,7 +22,7 @@ const HomePage = () => {
         const requestPopularMovies = async() =>{
              const getPopularMovies = await axios.get("/movie/popular");
              setPopularMovies(getPopularMovies.data.results);
-             console.log( getPopularMovies)
+             
         }
         requestPopularMovies();
     },[]);
