@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React,{useState,useEffect} from 'react';
-
+import { useParams } from 'react-router';
 
 
 // components
@@ -12,7 +12,7 @@ import PosterSlider from '../components/PosterSlider/PosterSlider.component';
 // import TempPosters from '../config/TempPosters.config'
 
 const HomePage = () => {
-
+    const {id} = useParams();
     const[popularMovies,setPopularMovies] = useState([]);
     const[topRatedMovies,setTopRatedMovies] = useState([]);
     const[upcomingMovies,setUpcomingMovies] = useState([]);
@@ -35,7 +35,7 @@ const HomePage = () => {
         };
         requestTopRatedMovies();
 
-    },[]);
+    },[id]);
 
     useEffect(()=>{
         const requestUpcomingMovies = async()=>{
@@ -43,7 +43,7 @@ const HomePage = () => {
             setUpcomingMovies(getUpcomingMovies.data.results);
         };
         requestUpcomingMovies();
-    },[])
+    },[id])
 
     return (
         <>
